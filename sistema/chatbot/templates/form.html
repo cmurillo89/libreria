@@ -1,0 +1,14 @@
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    
+
+    <div class="mb-3">
+      <input type="input_type" class="form-control" name="pregunta" id="" aria-describedby="helpId" placeholder="Escribe la pregunta" value=""> 
+      <small id="helpId" class="form-text text-muted">{{campo.errors}}</small>
+    </div>
+  
+
+    <input name="" id="" class="btn btn-success" type="submit" value="Enviar información">
+</form>
