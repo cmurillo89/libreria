@@ -43,3 +43,4 @@ def editar(request, id):
         formulario.save()
         return redirect('libros')
     return render(request, "libros/editar.html", {'formulario': formulario})
+

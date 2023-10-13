@@ -12,7 +12,8 @@
         <h4 class="card-title">Libros</h4>
         
         <div class="table-responsive">
-            <table class="table table-responsive">
+            
+            <table id="myTable" class="table table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -29,7 +30,6 @@
                         <td>{{ libro.titulo }}</td>
                         <td>
                             <img src="{{ libro.imagen.url }}" height="100">
-                            {{ libro.imagen.url }}
                         </td>
                         <td>{{ libro.descripcion }}</td>
                         <td><a name="" id="" class="btn btn-info" href="{% url 'editar' libro.id  %}" role="button">Editar</a> 
@@ -40,9 +40,16 @@
                     {% endfor %}
                 </tbody>
             </table>
+            
+            <script>
+                // new DataTable('#myTable')
+                var table = new DataTable('#myTable', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+                            },
+                        });
+            </script>
         </div>
-        
-
     </div>
     <div class="card-footer text-muted">
         
