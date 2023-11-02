@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'chatbot',
 ]
 
+ASGI_APPLICATION = "libreria.routing.application"
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

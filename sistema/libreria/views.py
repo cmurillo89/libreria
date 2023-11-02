@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.urls import reverse
+from django.http import JsonResponse
+from django.core import serializers
 from .models import Libro
 from .forms import LibroForm
 # Create your views here.
@@ -14,6 +16,23 @@ def nosotros(request):
 def libros(request):
     libros = Libro.objects.all()
     return render(request, "libros/index.html", {'libros': libros})
+
+def obtener_registros(request):
+    registros = Libro.objects.all()
+    data = []
+
+    for registro in registros:
+        data.append({
+            'pk': registro.pk,
+            'titulo': registro.titulo,
+            'imagen': registro.imagen.url,
+            'descripcion': registro.descripcion,
+            'url_editar': reverse('editar', args=[registro.pk]),  # Reemplaza 'editar' con el nombre de tu vista de edición
+            'url_eliminar': reverse('eliminar', args=[registro.pk]),  # Reemplaza 'eliminar' con el nombre de tu vista de eliminación
+        })
+
+    return JsonResponse(data, safe=False)
+
 
 def crear(request):
     formulario = LibroForm(request.POST or None, request.FILES or None)

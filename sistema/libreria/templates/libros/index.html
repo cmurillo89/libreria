@@ -42,13 +42,59 @@
             </table>
             
             <script>
-                // new DataTable('#myTable')
-                var table = new DataTable('#myTable', {
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
-                            },
+                $(document).ready(function () {
+                    // Inicializa DataTables
+                    var table = $('#myTable').DataTable({
+                        stateSave: true, // Habilita el guardado del estado
+                        // Otras opciones de configuración aquí
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                        },
+                        initComplete: function () {
+                            // Guarda el estado actual de DataTables
+                            var tableState = table.state.save();
+            
+                            // Llama a la función para actualizar registros
+                            actualizarRegistros();
+            
+                            // Restaura el estado guardado
+                            table.state.restore(tableState);
+                        }
+                    });
+            
+                    // Función para traer los registros JSON
+                    function actualizarRegistros() {
+                        $.ajax({
+                            url: '/obtener_registros/',  // Reemplaza con la URL de tu vista
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (data) {
+                                // Selecciona la tabla
+                                var tabla = $('#myTable tbody');
+            
+                                // Elimina filas anteriores si las hay
+                                tabla.empty();
+            
+                                // Itera sobre los datos recibidos y agrega filas a la tabla
+                                $.each(data, function (index, registro) {
+                                    var newRow = '<tr>' +
+                                        '<td>' + registro.pk + '</td>' +
+                                        '<td>' + registro.titulo + '</td>' +
+                                        '<td><img src="' + registro.imagen + '" height="100"></td>' +
+                                        '<td>' + registro.descripcion + '</td>' +
+                                        '<td><a name="" id="" class="btn btn-info" href="' + registro.url_editar + '" role="button">Editar</a> - <a name="" id="" class="btn btn-danger" href="' + registro.url_eliminar + '" role="button">Borrar</a></td>' +
+                                        '</tr>';
+                                    tabla.append(newRow);
+                                });
+                            }
                         });
+                    }
+            
+                    // Llama a la función para actualizar registros en un intervalo de tiempo
+                    setInterval(actualizarRegistros, 5000);  // Actualiza cada 5 segundos (ajusta el intervalo según tus necesidades)
+                });
             </script>
+            
         </div>
     </div>
     <div class="card-footer text-muted">
