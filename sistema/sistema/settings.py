@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'libreria',
-    'chatbot',
 ]
 
 ASGI_APPLICATION = "libreria.routing.application"
