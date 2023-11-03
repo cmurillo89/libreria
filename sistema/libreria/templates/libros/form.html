@@ -7,13 +7,19 @@
     <div class="mb-3">
       <label for="" class="form-label">{{campo.label}}</label>
 
-        <!-- Cuarta parte referente a la edición -->
+
+      
+
+        <!-- Cuarta parte referente a la edición, la carga de imagenes -->
         {% if campo.field.widget.input_type == 'file' and campo.value %}
         <br>
         <img src="{{MEDIA_URL}}/imagenes/{{ campo.value}}" width="100" srcset="" alt="">
         <br>
         <br>
         {% endif %}
+
+
+
 
       <input type="{{ campo.field.widget.input_type }}"
         class="form-control" 
